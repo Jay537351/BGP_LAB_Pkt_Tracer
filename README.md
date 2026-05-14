@@ -846,4 +846,4 @@ Free to use and modify for educational purposes.
 
 ---
 
-*Built with ❤️ using Cisco Packet Tracer*
+*Built using Cisco Packet Tracer*
