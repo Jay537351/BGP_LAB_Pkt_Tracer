@@ -836,8 +836,6 @@ Move this lab to GNS3 or EVE-NG for:
 ## References
 
 - Original Lab: Patel Jay 
-- Cisco BGP Documentation: [cisco.com](https://www.cisco.com)
-- Cisco OSPF Documentation: [cisco.com](https://www.cisco.com)
 
 ---
 
