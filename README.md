@@ -3,7 +3,6 @@
 
 [![Status](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![Protocol](https://img.shields.io/badge/Protocol-BGP%20%7C%20OSPF-blue)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
-[![Path](https://img.shields.io/badge/Path-CCNP%20Security-orange)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![Tools](https://img.shields.io/badge/Tools-Cisco%20Packet%20Tracer%20%7C%20Cisco%202811-lightgrey)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer/blob/main/LICENSE)
 
