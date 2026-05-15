@@ -552,19 +552,19 @@ router bgp 64915
 ### Full Network Topology
 ![Topology](Screenshots/topology.png)
 
-### BGP Neighbors Summary — R2
+### BGP Neighbors Summary (R2)
 ![BGP Summary](Screenshots/bgp-summary.png)
 
-### OSPF Neighbors — R2
+### OSPF Neighbors (R2)
 ![OSPF Neighbors](Screenshots/ospf-neighbors.png)
 
-### BGP Routing Table — R2
+### BGP Routing Table (R2)
 ![BGP Table](Screenshots/bgp-table.png)
 
-### Full Routing Table — R2
+### Routing Table (R2)
 ![Routing Table](Screenshots/routing-table.png)
 
-### Successful End-to-End Ping — R1 to R12
+### Successful End-to-End Ping (R1 to R12)
 ![Ping Success](Screenshots/ping-success.png)
 
 ---
