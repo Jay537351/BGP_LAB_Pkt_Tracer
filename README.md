@@ -1,5 +1,11 @@
-[README.md](https://github.com/user-attachments/files/27753958/README.md)
+[README (1).md](https://github.com/user-attachments/files/27813030/README.1.md)
 # 🌐 Basic BGP Lab — Multi-AS Network Configuration
+
+[![Status](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
+[![Protocol](https://img.shields.io/badge/Protocol-BGP%20%7C%20OSPF-blue)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
+[![Path](https://img.shields.io/badge/Path-CCNP%20Security-orange)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
+[![Tools](https://img.shields.io/badge/Tools-Cisco%20Packet%20Tracer%20%7C%20Cisco%202811-lightgrey)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
+[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer/blob/main/LICENSE)
 
 > A hands-on Cisco Packet Tracer lab implementing Border Gateway Protocol (BGP) across 4 Autonomous Systems with 12 routers, including OSPF as the underlying IGP.
 
@@ -18,22 +24,24 @@
   - [Loopback Interfaces](#loopback-interfaces)
   - [OSPF Configuration](#ospf-configuration)
   - [BGP Configuration](#bgp-configuration)
+- [Screenshots](#screenshots)
 - [BGP Concepts Explained](#bgp-concepts-explained)
 - [OSPF Concepts Explained](#ospf-concepts-explained)
+- [Packet Tracer Limitations](#packet-tracer-limitations)
 - [Verification Commands](#verification-commands)
 - [Troubleshooting Guide](#troubleshooting-guide)
-- [Future Improvements](#future-improvements)
 - [Key Lessons Learned](#key-lessons-learned)
+- [Future Improvements](#future-improvements)
 
 ---
 
 ## Overview
 
-This lab demonstrates the configuration of **Border Gateway Protocol (BGP)** across multiple Autonomous Systems (AS) using Cisco 2811 routers in Packet Tracer. It covers eBGP (between different AS) and iBGP (within the same AS), combined with OSPF as the Interior Gateway Protocol (IGP) to ensure reachability between BGP next-hops.
+This lab demonstrates the configuration of **Border Gateway Protocol (BGP)** across multiple Autonomous Systems (AS) using Cisco 2811 routers in Packet Tracer. It covers eBGP (between different AS) combined with OSPF as the Interior Gateway Protocol (IGP) to ensure reachability between BGP next-hops.
 
 **Original lab design by:** Patel Jay (pjay20370@gmail.com)  
 **Tool used:** Cisco Packet Tracer  
-**Router model:** Cisco 2811  
+**Router model:** Cisco 2811 
 
 ---
 
@@ -49,6 +57,8 @@ AS64900                AS64905              AS64910                AS64915
 └─────────────┘    └──────────┘    │   R7      R11   │    │  R11         │
                                    └──────────────────┘    └──────────────┘
 ```
+
+![Topology](Screenshots/topology.png)
 
 ---
 
@@ -86,20 +96,14 @@ AS64900                AS64905              AS64910                AS64915
 
 ### Loopback Addresses (Y.Y.Y.Y/24)
 
-| Router | Loopback IP |
-|--------|------------|
-| R1 | 1.1.1.1/24 |
-| R2 | 2.2.2.2/24 |
-| R3 | 3.3.3.3/24 |
-| R4 | 4.4.4.4/24 |
-| R5 | 5.5.5.5/24 |
-| R6 | 6.6.6.6/24 |
-| R7 | 7.7.7.7/24 |
-| R8 | 8.8.8.8/24 |
-| R9 | 9.9.9.9/24 |
-| R10 | 10.10.10.10/24 |
-| R11 | 11.11.11.11/24 |
-| R12 | 12.12.12.12/24 |
+| Router | Loopback IP | Router | Loopback IP |
+|--------|------------|--------|------------|
+| R1 | 1.1.1.1/24 | R7 | 7.7.7.7/24 |
+| R2 | 2.2.2.2/24 | R8 | 8.8.8.8/24 |
+| R3 | 3.3.3.3/24 | R9 | 9.9.9.9/24 |
+| R4 | 4.4.4.4/24 | R10 | 10.10.10.10/24 |
+| R5 | 5.5.5.5/24 | R11 | 11.11.11.11/24 |
+| R6 | 6.6.6.6/24 | R12 | 12.12.12.12/24 |
 
 ---
 
@@ -137,8 +141,7 @@ Each router requires additional modules before configuration:
 3. Configure loopback interfaces using Y.Y.Y.Y/24 scheme
 4. Configure OSPF within each AS for internal reachability
 5. Configure eBGP between border routers of different AS
-6. Configure iBGP between routers within the same AS
-7. Verify end-to-end connectivity from R1 to R12
+6. Verify end-to-end connectivity from R1 to R12
 
 ---
 
@@ -146,7 +149,9 @@ Each router requires additional modules before configuration:
 
 ### Interface Configuration
 
-#### Router 1
+<details>
+<summary>Click to expand — Router 1</summary>
+
 ```cisco
 en
 conf t
@@ -157,9 +162,14 @@ interface fa0/0
 interface fa0/1
  ip address 192.168.13.1 255.255.255.0
  no shutdown
+interface loopback 0
+ ip address 1.1.1.1 255.255.255.0
 ```
+</details>
 
-#### Router 2
+<details>
+<summary>Click to expand — Router 2</summary>
+
 ```cisco
 en
 conf t
@@ -170,9 +180,14 @@ interface eth1/0
 interface se0/0/1
  ip address 192.168.24.1 255.255.255.0
  no shutdown
+interface loopback 0
+ ip address 2.2.2.2 255.255.255.0
 ```
+</details>
 
-#### Router 3
+<details>
+<summary>Click to expand — Router 3</summary>
+
 ```cisco
 en
 conf t
@@ -184,10 +199,16 @@ interface se0/0/0
  clock rate 64000
  ip address 192.168.34.1 255.255.255.0
  no shutdown
+interface loopback 0
+ ip address 3.3.3.3 255.255.255.0
 ```
+</details>
 
-#### Router 4
+<details>
+<summary>Click to expand — Routers 4 through 12</summary>
+
 ```cisco
+! R4
 en
 conf t
 hostname R4
@@ -201,10 +222,10 @@ interface se0/0/1
 interface eth1/0
  ip address 192.168.45.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 4.4.4.4 255.255.255.0
 
-#### Router 5
-```cisco
+! R5
 en
 conf t
 hostname R5
@@ -219,10 +240,10 @@ interface se0/0/1
  clock rate 64000
  ip address 192.168.57.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 5.5.5.5 255.255.255.0
 
-#### Router 6
-```cisco
+! R6
 en
 conf t
 hostname R6
@@ -232,10 +253,10 @@ interface se0/0/0
 interface se0/0/1
  ip address 192.168.68.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 6.6.6.6 255.255.255.0
 
-#### Router 7
-```cisco
+! R7
 en
 conf t
 hostname R7
@@ -246,10 +267,10 @@ interface se0/0/1
  clock rate 64000
  ip address 192.168.78.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 7.7.7.7 255.255.255.0
 
-#### Router 8
-```cisco
+! R8
 en
 conf t
 hostname R8
@@ -263,10 +284,10 @@ interface se0/0/1
 interface eth1/0
  ip address 192.168.89.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 8.8.8.8 255.255.255.0
 
-#### Router 9
-```cisco
+! R9
 en
 conf t
 hostname R9
@@ -280,10 +301,10 @@ interface se0/0/0
 interface fa0/0
  ip address 192.168.119.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 9.9.9.9 255.255.255.0
 
-#### Router 10
-```cisco
+! R10
 en
 conf t
 hostname R10
@@ -293,10 +314,10 @@ interface se0/0/1
 interface eth1/0
  ip address 192.168.120.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 10.10.10.10 255.255.255.0
 
-#### Router 11
-```cisco
+! R11
 en
 conf t
 hostname R11
@@ -306,10 +327,10 @@ interface fa0/1
 interface fa0/0
  ip address 192.168.121.1 255.255.255.0
  no shutdown
-```
+interface loopback 0
+ ip address 11.11.11.11 255.255.255.0
 
-#### Router 12
-```cisco
+! R12
 en
 conf t
 hostname R12
@@ -319,36 +340,10 @@ interface fa0/1
 interface fa0/0
  ip address 192.168.121.2 255.255.255.0
  no shutdown
-```
-
----
-
-### Loopback Interfaces
-
-Configure on every router (replace Y with router number):
-
-```cisco
-interface loopback 0
- ip address Y.Y.Y.Y 255.255.255.0
-```
-
-**Example for each router:**
-```cisco
-! R1
-interface loopback 0
- ip address 1.1.1.1 255.255.255.0
-
-! R2
-interface loopback 0
- ip address 2.2.2.2 255.255.255.0
-
-! Continue pattern through R12
-! R12
 interface loopback 0
  ip address 12.12.12.12 255.255.255.0
 ```
-
-> 💡 **Note:** Loopback interfaces are always up and never need `no shutdown`. They serve as stable router identities for BGP.
+</details>
 
 ---
 
@@ -358,135 +353,122 @@ OSPF provides the underlying path knowledge BGP needs to forward packets.
 
 > ⚠️ **Critical:** OSPF runs **within each AS only**. Do not configure OSPF across AS boundaries.
 
-#### AS64900 — R1, R2, R3
+<details>
+<summary>Click to expand — OSPF on all routers</summary>
 
 ```cisco
-! R1
+! R1 — AS64900
 router ospf 1
  network 192.168.12.0 0.0.0.255 area 0
  network 192.168.13.0 0.0.0.255 area 0
  network 1.1.1.0 0.0.0.255 area 0
 
-! R2
+! R2 — AS64900
 router ospf 1
  network 192.168.12.0 0.0.0.255 area 0
  network 192.168.24.0 0.0.0.255 area 0
  network 2.2.2.0 0.0.0.255 area 0
 
-! R3
+! R3 — AS64900
 router ospf 1
  network 192.168.13.0 0.0.0.255 area 0
  network 192.168.34.0 0.0.0.255 area 0
  network 3.3.3.0 0.0.0.255 area 0
-```
 
-#### AS64905 — R4, R5
-
-```cisco
-! R4
+! R4 — AS64905
 router ospf 1
  network 192.168.24.0 0.0.0.255 area 0
  network 192.168.34.0 0.0.0.255 area 0
  network 192.168.45.0 0.0.0.255 area 0
  network 4.4.4.0 0.0.0.255 area 0
 
-! R5
+! R5 — AS64905
 router ospf 1
  network 192.168.45.0 0.0.0.255 area 0
  network 192.168.56.0 0.0.0.255 area 0
  network 192.168.57.0 0.0.0.255 area 0
  network 5.5.5.0 0.0.0.255 area 0
-```
 
-#### AS64910 — R6, R7, R8, R9
-
-```cisco
-! R6
+! R6 — AS64910
 router ospf 1
  network 192.168.56.0 0.0.0.255 area 0
  network 192.168.68.0 0.0.0.255 area 0
  network 6.6.6.0 0.0.0.255 area 0
 
-! R7
+! R7 — AS64910
 router ospf 1
  network 192.168.57.0 0.0.0.255 area 0
  network 192.168.78.0 0.0.0.255 area 0
  network 7.7.7.0 0.0.0.255 area 0
 
-! R8
+! R8 — AS64910
 router ospf 1
  network 192.168.68.0 0.0.0.255 area 0
  network 192.168.78.0 0.0.0.255 area 0
  network 192.168.89.0 0.0.0.255 area 0
  network 8.8.8.0 0.0.0.255 area 0
 
-! R9
+! R9 — AS64910
 router ospf 1
  network 192.168.89.0 0.0.0.255 area 0
  network 192.168.109.0 0.0.0.255 area 0
  network 192.168.119.0 0.0.0.255 area 0
  network 9.9.9.0 0.0.0.255 area 0
-```
 
-#### AS64915 — R10, R11, R12
-
-```cisco
-! R10
+! R10 — AS64915
 router ospf 1
  network 192.168.109.0 0.0.0.255 area 0
  network 192.168.120.0 0.0.0.255 area 0
  network 10.10.10.0 0.0.0.255 area 0
 
-! R11
+! R11 — AS64915
 router ospf 1
  network 192.168.119.0 0.0.0.255 area 0
  network 192.168.121.0 0.0.0.255 area 0
  network 11.11.11.0 0.0.0.255 area 0
 
-! R12
+! R12 — AS64915
 router ospf 1
  network 192.168.120.0 0.0.0.255 area 0
  network 192.168.121.0 0.0.0.255 area 0
  network 12.12.12.0 0.0.0.255 area 0
 ```
+</details>
 
 ---
 
 ### BGP Configuration
 
-#### BGP Neighbor Relationships
+> ⚠️ **Packet Tracer Limitation:** This version of Cisco Packet Tracer does **not support iBGP**. Only eBGP between different Autonomous Systems is configured. OSPF handles all internal AS routing. For full iBGP support use GNS3 or EVE-NG.
 
-| Router | iBGP Neighbors | eBGP Neighbors |
-|--------|---------------|----------------|
-| R1 | R2, R3 | — |
-| R2 | R1 | R4 |
-| R3 | R1 | R4 |
-| R4 | R5 | R2, R3 |
-| R5 | R4 | R6, R7 |
-| R6 | R8 | R5 |
-| R7 | R8 | R5 |
-| R8 | R6, R7, R9 | — |
-| R9 | R8 | R10, R11 |
-| R10 | R12 | R9 |
-| R11 | R12 | R9 |
-| R12 | R10, R11 | — |
+#### eBGP Neighbor Design
 
-#### Full BGP Configuration
+| Router | AS | eBGP Neighbor | Neighbor AS |
+|--------|----|--------------|-------------|
+| R2 | 64900 | R4 — 192.168.24.2 | 64905 |
+| R3 | 64900 | R4 — 192.168.34.2 | 64905 |
+| R4 | 64905 | R2 — 192.168.24.1 | 64900 |
+| R4 | 64905 | R3 — 192.168.34.1 | 64900 |
+| R5 | 64905 | R6 — 192.168.56.2 | 64910 |
+| R5 | 64905 | R7 — 192.168.57.2 | 64910 |
+| R6 | 64910 | R5 — 192.168.56.1 | 64905 |
+| R7 | 64910 | R5 — 192.168.57.1 | 64905 |
+| R9 | 64910 | R10 — 192.168.109.2 | 64915 |
+| R9 | 64910 | R11 — 192.168.119.2 | 64915 |
+| R10 | 64915 | R9 — 192.168.109.1 | 64910 |
+| R11 | 64915 | R9 — 192.168.119.1 | 64910 |
+
+<details>
+<summary>Click to expand — Full BGP configuration</summary>
 
 ```cisco
-! R1
-router bgp 64900
- bgp router-id 1.1.1.1
- neighbor 192.168.12.2 remote-as 64900
- neighbor 192.168.13.2 remote-as 64900
- network 192.168.12.0 mask 255.255.255.0
- network 192.168.13.0 mask 255.255.255.0
- network 1.1.1.0 mask 255.255.255.0
+! R1 — No BGP needed, OSPF handles internal routing
+! R8 — No BGP needed, OSPF handles internal routing
+! R12 — No BGP needed, OSPF handles internal routing
 
 ! R2
 router bgp 64900
  bgp router-id 2.2.2.2
- neighbor 192.168.12.1 remote-as 64900
  neighbor 192.168.24.2 remote-as 64905
  network 192.168.12.0 mask 255.255.255.0
  network 192.168.24.0 mask 255.255.255.0
@@ -495,7 +477,6 @@ router bgp 64900
 ! R3
 router bgp 64900
  bgp router-id 3.3.3.3
- neighbor 192.168.13.1 remote-as 64900
  neighbor 192.168.34.2 remote-as 64905
  network 192.168.13.0 mask 255.255.255.0
  network 192.168.34.0 mask 255.255.255.0
@@ -506,7 +487,6 @@ router bgp 64905
  bgp router-id 4.4.4.4
  neighbor 192.168.24.1 remote-as 64900
  neighbor 192.168.34.1 remote-as 64900
- neighbor 192.168.45.2 remote-as 64905
  network 192.168.24.0 mask 255.255.255.0
  network 192.168.34.0 mask 255.255.255.0
  network 192.168.45.0 mask 255.255.255.0
@@ -515,7 +495,6 @@ router bgp 64905
 ! R5
 router bgp 64905
  bgp router-id 5.5.5.5
- neighbor 192.168.45.1 remote-as 64905
  neighbor 192.168.56.2 remote-as 64910
  neighbor 192.168.57.2 remote-as 64910
  network 192.168.45.0 mask 255.255.255.0
@@ -527,7 +506,6 @@ router bgp 64905
 router bgp 64910
  bgp router-id 6.6.6.6
  neighbor 192.168.56.1 remote-as 64905
- neighbor 192.168.68.2 remote-as 64910
  network 192.168.56.0 mask 255.255.255.0
  network 192.168.68.0 mask 255.255.255.0
  network 6.6.6.0 mask 255.255.255.0
@@ -536,26 +514,13 @@ router bgp 64910
 router bgp 64910
  bgp router-id 7.7.7.7
  neighbor 192.168.57.1 remote-as 64905
- neighbor 192.168.78.2 remote-as 64910
  network 192.168.57.0 mask 255.255.255.0
  network 192.168.78.0 mask 255.255.255.0
  network 7.7.7.0 mask 255.255.255.0
 
-! R8
-router bgp 64910
- bgp router-id 8.8.8.8
- neighbor 192.168.68.1 remote-as 64910
- neighbor 192.168.78.1 remote-as 64910
- neighbor 192.168.89.2 remote-as 64910
- network 192.168.68.0 mask 255.255.255.0
- network 192.168.78.0 mask 255.255.255.0
- network 192.168.89.0 mask 255.255.255.0
- network 8.8.8.0 mask 255.255.255.0
-
 ! R9
 router bgp 64910
  bgp router-id 9.9.9.9
- neighbor 192.168.89.1 remote-as 64910
  neighbor 192.168.109.2 remote-as 64915
  neighbor 192.168.119.2 remote-as 64915
  network 192.168.89.0 mask 255.255.255.0
@@ -567,7 +532,6 @@ router bgp 64910
 router bgp 64915
  bgp router-id 10.10.10.10
  neighbor 192.168.109.1 remote-as 64910
- neighbor 192.168.120.2 remote-as 64915
  network 192.168.109.0 mask 255.255.255.0
  network 192.168.120.0 mask 255.255.255.0
  network 10.10.10.0 mask 255.255.255.0
@@ -576,20 +540,33 @@ router bgp 64915
 router bgp 64915
  bgp router-id 11.11.11.11
  neighbor 192.168.119.1 remote-as 64910
- neighbor 192.168.121.2 remote-as 64915
  network 192.168.119.0 mask 255.255.255.0
  network 192.168.121.0 mask 255.255.255.0
  network 11.11.11.0 mask 255.255.255.0
-
-! R12
-router bgp 64915
- bgp router-id 12.12.12.12
- neighbor 192.168.120.1 remote-as 64915
- neighbor 192.168.121.1 remote-as 64915
- network 192.168.120.0 mask 255.255.255.0
- network 192.168.121.0 mask 255.255.255.0
- network 12.12.12.0 mask 255.255.255.0
 ```
+</details>
+
+---
+
+## Screenshots
+
+### Full Network Topology
+![Topology](Screenshots/topology.png)
+
+### BGP Neighbors Summary — R2
+![BGP Summary](Screenshots/bgp-summary.png)
+
+### OSPF Neighbors — R2
+![OSPF Neighbors](Screenshots/ospf-neighbors.png)
+
+### BGP Routing Table — R2
+![BGP Table](Screenshots/bgp-table.png)
+
+### Full Routing Table — R2
+![Routing Table](Screenshots/routing-table.png)
+
+### Successful End-to-End Ping — R1 to R12
+![Ping Success](Screenshots/ping-success.png)
 
 ---
 
@@ -633,7 +610,6 @@ With OSPF:      R1 knows R12 exists ✅  and knows the physical path ✅
 ```
 
 ### OSPF Wildcard Mask
-OSPF uses wildcard masks which are the inverse of subnet masks:
 ```
 Subnet mask:   255.255.255.0  (used in ip address command)
 Wildcard mask:   0.0.0.255    (used in OSPF network command)
@@ -644,113 +620,48 @@ All routers in this lab use **Area 0** (the backbone area) for simplicity.
 
 ---
 
+## Packet Tracer Limitations
+
+> ⚠️ **Important Note for Anyone Replicating This Lab**
+
+| Feature | Packet Tracer | GNS3 / Real IOS |
+|---------|--------------|-----------------|
+| eBGP | ✅ Supported | ✅ Supported |
+| iBGP | ❌ Not supported | ✅ Supported |
+| Route Reflectors | ❌ Not supported | ✅ Supported |
+| BGP Communities | ❌ Limited | ✅ Supported |
+| BGP Authentication | ❌ Limited | ✅ Supported |
+
+**How this lab handles it:** Since iBGP is not supported, OSPF runs inside each AS to provide full internal reachability. Only eBGP is configured between AS boundary routers. This mirrors a real-world design pattern — OSPF as IGP with BGP for inter-AS routing.
+
+**For full BGP feature support:** Migrate to GNS3 or EVE-NG with real Cisco IOS images.
+
+---
+
 ## Verification Commands
 
-### Interface Verification
 ```cisco
-! Check all interfaces and their status
+! Interface status
 show ip interface brief
-
-! Check serial interface DCE/DTE status
 show controllers se0/0/0
-```
 
-### OSPF Verification
-```cisco
-! Check OSPF neighbor relationships
+! OSPF verification
 show ip ospf neighbor
-
-! Check OSPF routes in routing table
 show ip route ospf
 
-! Check OSPF database
-show ip ospf database
-```
-
-### BGP Verification
-```cisco
-! Check BGP neighbor status
+! BGP verification
 show ip bgp summary
-
-! Check BGP routing table
 show ip bgp
-
-! Check specific BGP neighbor details
-show ip bgp neighbors
-
-! Check routing table for BGP routes
 show ip route bgp
-```
 
-### Connectivity Testing
-```cisco
-! Ping within same AS
-R1# ping 2.2.2.2
-
-! Ping across all AS (ultimate test)
-R1# ping 12.12.12.12
-
-! Traceroute to see the full path
-R1# traceroute 12.12.12.12
+! Connectivity testing
+ping 12.12.12.12
+traceroute 12.12.12.12
 ```
 
 ---
 
 ## Troubleshooting Guide
-
-### Problem: BGP neighbors not forming (State shows Active or Idle)
-
-| Check | Command | What to Look For |
-|-------|---------|-----------------|
-| Interface up | `show ip int brief` | up/up on all interfaces |
-| Correct neighbor IP | `show run` | IP matches directly connected interface |
-| Correct AS number | `show run` | remote-as matches neighbor's actual AS |
-| Reachability | `ping <neighbor-ip>` | Should succeed before BGP forms |
-
-### Problem: Interfaces showing down/down
-
-```cisco
-! Fix — go to interface and bring it up
-conf t
-interface fa0/0
-no shutdown
-```
-
-### Problem: Serial link not coming up
-
-```cisco
-! Check which end is DCE
-show controllers se0/0/0
-
-! If DCE — add clock rate
-conf t
-interface se0/0/0
-clock rate 64000
-no shutdown
-```
-
-### Problem: BGP neighbors up but no routes
-
-```cisco
-! Check BGP table
-show ip bgp
-
-! Verify network exists in routing table first
-show ip route 192.168.12.0
-
-! If missing — the network command is wrong or interface is down
-```
-
-### Problem: Can ping neighbor but not far destinations
-
-```cisco
-! Check if OSPF neighbors formed
-show ip ospf neighbor
-
-! Check if BGP is learning routes
-show ip bgp summary
-! Look for numbers in PfxRcd column — 0 means no routes received
-```
 
 ### BGP State Reference
 
@@ -760,64 +671,16 @@ show ip bgp summary
 | **Active** | Trying to connect, failing | Check IP, AS number, reachability |
 | **Idle** | Not trying | Check configuration |
 | **Connect** | TCP connection attempt | Usually temporary |
-| **OpenSent** | BGP open message sent | Usually temporary |
 
----
+### Common Problems and Fixes
 
-## Future Improvements
-
-Here are suggested enhancements to extend this lab:
-
-### 1. 🔒 BGP Authentication
-Add MD5 authentication between BGP peers to secure neighbor relationships:
-```cisco
-neighbor 192.168.12.2 password cisco123
-```
-
-### 2. 📊 BGP Route Filtering
-Implement prefix lists to control which routes are advertised:
-```cisco
-ip prefix-list FILTER seq 5 permit 1.1.1.0/24
-neighbor 192.168.12.2 prefix-list FILTER out
-```
-
-### 3. ⚖️ BGP Path Manipulation
-Use LOCAL_PREF and MED attributes to influence path selection:
-```cisco
-! Prefer one path over another
-route-map SET_LOCAL_PREF permit 10
- set local-preference 200
-neighbor 192.168.24.2 route-map SET_LOCAL_PREF in
-```
-
-### 4. 🔄 BGP Communities
-Tag routes with communities for easier policy management:
-```cisco
-neighbor 192.168.24.2 send-community
-route-map SET_COMMUNITY permit 10
- set community 64900:100
-```
-
-### 5. 🛡️ Prefix List Security
-Prevent route hijacking by only accepting expected prefixes from each neighbor.
-
-### 6. 📈 Traffic Engineering
-Configure multiple paths between AS and use BGP attributes to load balance or create redundant paths.
-
-### 7. 🔁 Redundancy Testing
-Simulate link failures by shutting down interfaces and observing BGP reconvergence:
-```cisco
-interface se0/0/0
-shutdown
-! Observe BGP reconverging to alternate path
-no shutdown
-```
-
-### 8. 📝 Upgrade to GNS3 or EVE-NG
-Move this lab to GNS3 or EVE-NG for:
-- Full IOS feature support (including route-reflectors)
-- More realistic simulation
-- Better scalability
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| BGP neighbor not forming | Wrong AS number | Verify remote-as matches neighbor's actual AS |
+| BGP neighbor not forming | Wrong neighbor IP | Use only directly connected interface IPs |
+| Serial link down | Missing clock rate | Run `show controllers` — add `clock rate 64000` on DCE end |
+| BGP table empty | iBGP attempted in Packet Tracer | Remove iBGP — only eBGP is supported |
+| Config lost after reopening | Not saved to NVRAM | Run `write memory` on every router before closing |
 
 ---
 
@@ -825,25 +688,38 @@ Move this lab to GNS3 or EVE-NG for:
 
 1. **OSPF must run before BGP** — BGP needs IGP to find next-hops
 2. **Clock rate only on DCE end** — always verify with `show controllers`
-3. **iBGP neighbors must be directly reachable** — in Packet Tracer, only peer with directly connected routers
-4. **The `network` command requires existing routes** — BGP only advertises what's already in the routing table
+3. **Packet Tracer does not support iBGP** — only eBGP works in this version
+4. **The `network` command requires existing routes** — BGP only advertises what is already in the routing table
 5. **BGP takes time to converge** — wait 30-60 seconds after configuration before testing
-6. **Loopbacks are always up** — use them as router IDs for stability
-7. **eBGP vs iBGP** — different AS = eBGP, same AS = iBGP. Getting this wrong breaks neighbor formation
+6. **Always run `write memory`** — saves config to NVRAM so it survives after reopening the .pkt file
+7. **eBGP vs iBGP** — different AS = eBGP, same AS = iBGP
+
+---
+
+## Future Improvements
+
+- [ ] Add BGP MD5 authentication between all eBGP peers
+- [ ] Implement prefix-list filtering to control route advertisement
+- [ ] Configure BGP LOCAL_PREF for path preference
+- [ ] Simulate link failures and observe BGP reconvergence
+- [ ] Migrate to GNS3 for full iBGP and route-reflector support
+- [ ] Add ACLs to secure inter-AS traffic
 
 ---
 
 ## References
 
-- Original Lab: Patel Jay 
+- Configured, implemented and documented by: Jay — [github.com/Jay537351](https://github.com/Jay537351)
 
 ---
 
 ## License
 
-This lab configuration is based on the Basic BGP Lab by Patel Jay.  
+All configuration, implementation and documentation by Patel Jay.
 Free to use and modify for educational purposes.
 
 ---
+
+[![GitHub](https://img.shields.io/badge/GitHub-Jay537351-black?logo=github)](https://github.com/Jay537351)
 
 *Built using Cisco Packet Tracer*
