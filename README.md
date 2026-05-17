@@ -1,8 +1,9 @@
-[README (1).md](https://github.com/user-attachments/files/27813030/README.1.md)
+[README.md](https://github.com/user-attachments/files/27901965/README.md)
 # 🌐 Basic BGP Lab — Multi-AS Network Configuration
 
 [![Status](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![Protocol](https://img.shields.io/badge/Protocol-BGP%20%7C%20OSPF-blue)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
+[![Path](https://img.shields.io/badge/Path-CCNP%20Security-orange)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![Tools](https://img.shields.io/badge/Tools-Cisco%20Packet%20Tracer%20%7C%20Cisco%202811-lightgrey)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/Jay537351/BGP_LAB_Pkt_Tracer/blob/main/LICENSE)
 
@@ -28,9 +29,6 @@
 - [OSPF Concepts Explained](#ospf-concepts-explained)
 - [Packet Tracer Limitations](#packet-tracer-limitations)
 - [Verification Commands](#verification-commands)
-- [Troubleshooting Guide](#troubleshooting-guide)
-- [Key Lessons Learned](#key-lessons-learned)
-- [Future Improvements](#future-improvements)
 
 ---
 
@@ -38,9 +36,9 @@
 
 This lab demonstrates the configuration of **Border Gateway Protocol (BGP)** across multiple Autonomous Systems (AS) using Cisco 2811 routers in Packet Tracer. It covers eBGP (between different AS) combined with OSPF as the Interior Gateway Protocol (IGP) to ensure reachability between BGP next-hops.
 
-**Original lab design by:** Patel Jay (pjay20370@gmail.com)  
-**Tool used:** Cisco Packet Tracer  
-**Router model:** Cisco 2811 
+**Configured and documented by:** Patel Jay (pjay20370@gmail.com) 
+**Tool used:** Cisco Packet Tracer
+**Router model:** Cisco 2811
 
 ---
 
@@ -76,22 +74,22 @@ AS64900                AS64905              AS64910                AS64915
 
 ### Point-to-Point Links (192.168.YY.x/24)
 
-| Link | Subnet | Router A IP | Router B IP |
-|------|--------|------------|------------|
-| R1 — R2 | 192.168.12.0/24 | R1: .1 | R2: .2 |
-| R1 — R3 | 192.168.13.0/24 | R1: .1 | R3: .2 |
-| R2 — R4 | 192.168.24.0/24 | R2: .1 | R4: .2 |
-| R3 — R4 | 192.168.34.0/24 | R3: .1 | R4: .2 |
-| R4 — R5 | 192.168.45.0/24 | R4: .1 | R5: .2 |
-| R5 — R6 | 192.168.56.0/24 | R5: .1 | R6: .2 |
-| R5 — R7 | 192.168.57.0/24 | R5: .1 | R7: .2 |
-| R6 — R8 | 192.168.68.0/24 | R6: .1 | R8: .2 |
-| R7 — R8 | 192.168.78.0/24 | R7: .1 | R8: .2 |
-| R8 — R9 | 192.168.89.0/24 | R8: .1 | R9: .2 |
-| R9 — R10 | 192.168.109.0/24 | R9: .1 | R10: .2 |
-| R9 — R11 | 192.168.119.0/24 | R9: .1 | R11: .2 |
-| R10 — R12 | 192.168.120.0/24 | R10: .1 | R12: .2 |
-| R11 — R12 | 192.168.121.0/24 | R11: .1 | R12: .2 |
+| Link | Subnet | Router A | Router A IP | Router B | Router B IP |
+|------|--------|----------|------------|----------|------------|
+| R1 — R2 | 192.168.12.0/24 | R1 Fa0/0 | 192.168.12.1 | R2 Eth1/0 | 192.168.12.2 |
+| R1 — R3 | 192.168.13.0/24 | R1 Fa0/1 | 192.168.13.1 | R3 Eth1/0 | 192.168.13.2 |
+| R2 — R4 | 192.168.24.0/24 | R2 Se0/0/1 | 192.168.24.1 | R4 Se0/0/0 | 192.168.24.2 |
+| R3 — R4 | 192.168.34.0/24 | R3 Se0/0/0 | 192.168.34.1 | R4 Se0/0/1 | 192.168.34.2 |
+| R4 — R5 | 192.168.45.0/24 | R4 Eth1/0 | 192.168.45.1 | R5 Eth1/0 | 192.168.45.2 |
+| R5 — R6 | 192.168.56.0/24 | R5 Se0/0/0 | 192.168.56.1 | R6 Se0/0/0 | 192.168.56.2 |
+| R5 — R7 | 192.168.57.0/24 | R5 Se0/0/1 | 192.168.57.1 | R7 Se0/0/0 | 192.168.57.2 |
+| R6 — R8 | 192.168.68.0/24 | R6 Se0/0/1 | 192.168.68.1 | R8 Se0/0/0 | 192.168.68.2 |
+| R7 — R8 | 192.168.78.0/24 | R7 Se0/0/1 | 192.168.78.1 | R8 Se0/0/1 | 192.168.78.2 |
+| R8 — R9 | 192.168.89.0/24 | R8 Eth1/0 | 192.168.89.1 | R9 Eth1/0 | 192.168.89.2 |
+| R9 — R10 | 192.168.109.0/24 | R9 Se0/0/0 | 192.168.109.1 | R10 Se0/0/1 | 192.168.109.2 |
+| R9 — R11 | 192.168.119.0/24 | R9 Fa0/0 | 192.168.119.1 | R11 Fa0/1 | 192.168.119.2 |
+| R10 — R12 | 192.168.120.0/24 | R10 Eth1/0 | 192.168.120.1 | R12 Fa0/1 | 192.168.120.2 |
+| R11 — R12 | 192.168.121.0/24 | R11 Fa0/0 | 192.168.121.1 | R12 Fa0/0 | 192.168.121.2 |
 
 ### Loopback Addresses (Y.Y.Y.Y/24)
 
@@ -561,7 +559,7 @@ router bgp 64915
 ### BGP Routing Table (R2)
 ![BGP Table](Screenshots/bgp-table.png)
 
-### Routing Table (R2)
+### Full Routing Table (R2)
 ![Routing Table](Screenshots/routing-table.png)
 
 ### Successful End-to-End Ping (R1 to R12)
@@ -657,52 +655,6 @@ show ip route bgp
 ping 12.12.12.12
 traceroute 12.12.12.12
 ```
-
----
-
-## Troubleshooting Guide
-
-### BGP State Reference
-
-| State | Meaning | Action |
-|-------|---------|--------|
-| **Established** | ✅ Working | None needed |
-| **Active** | Trying to connect, failing | Check IP, AS number, reachability |
-| **Idle** | Not trying | Check configuration |
-| **Connect** | TCP connection attempt | Usually temporary |
-
-### Common Problems and Fixes
-
-| Problem | Cause | Fix |
-|---------|-------|-----|
-| BGP neighbor not forming | Wrong AS number | Verify remote-as matches neighbor's actual AS |
-| BGP neighbor not forming | Wrong neighbor IP | Use only directly connected interface IPs |
-| Serial link down | Missing clock rate | Run `show controllers` — add `clock rate 64000` on DCE end |
-| BGP table empty | iBGP attempted in Packet Tracer | Remove iBGP — only eBGP is supported |
-| Config lost after reopening | Not saved to NVRAM | Run `write memory` on every router before closing |
-
----
-
-## Key Lessons Learned
-
-1. **OSPF must run before BGP** — BGP needs IGP to find next-hops
-2. **Clock rate only on DCE end** — always verify with `show controllers`
-3. **Packet Tracer does not support iBGP** — only eBGP works in this version
-4. **The `network` command requires existing routes** — BGP only advertises what is already in the routing table
-5. **BGP takes time to converge** — wait 30-60 seconds after configuration before testing
-6. **Always run `write memory`** — saves config to NVRAM so it survives after reopening the .pkt file
-7. **eBGP vs iBGP** — different AS = eBGP, same AS = iBGP
-
----
-
-## Future Improvements
-
-- [ ] Add BGP MD5 authentication between all eBGP peers
-- [ ] Implement prefix-list filtering to control route advertisement
-- [ ] Configure BGP LOCAL_PREF for path preference
-- [ ] Simulate link failures and observe BGP reconvergence
-- [ ] Migrate to GNS3 for full iBGP and route-reflector support
-- [ ] Add ACLs to secure inter-AS traffic
 
 ---
 
